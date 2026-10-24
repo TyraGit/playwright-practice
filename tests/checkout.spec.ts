@@ -45,14 +45,13 @@ test.describe("Checkout", () => {
     await checkoutPage.fillShippingInfo("Tembikai", "Ciku", "12345"); //use fillShippingInfo from CheckoutPage
     await checkoutPage.clickContinue(); //use clickContinue from CheckoutPage
 
-    await expect(checkoutOverviewPage.title).toBeVisible();
+    await expect(checkoutOverviewPage.title).toHaveText("Checkout: Overview");
     await expect(checkoutOverviewPage.itemName).toHaveText(
       "Sauce Labs Backpack",
     );
 
     await checkoutOverviewPage.finish();
 
-    await expect(checkoutOverviewPage.title).toHaveText("Checkout: Overview");
     await expect(checkoutCompletePage.title).toHaveText("Checkout: Complete!");
     await expect(checkoutCompletePage.thankYouMessage).toHaveText(
       "Thank you for your order!",
