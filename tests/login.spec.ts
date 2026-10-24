@@ -19,7 +19,10 @@ test.describe('Login', () => {
         //await page.locator('[data-test="login-button"]').click();
 
         //calling username, password and clicking login button from LoginPage
-        await loginPage.login('standard_user', 'secret_sauce'); 
+        //await loginPage.login('standard_user', 'secret_sauce'); 
+
+        //calling loginPage.loginAsStandardUser
+        await loginPage.loginAsStandardUser();
 
         await expect(page).toHaveURL(/inventory/);
         await expect(page.getByText('Products')).toBeVisible();
@@ -32,10 +35,8 @@ test.describe('Login', () => {
         await expect(loginPage.errorMessage).toHaveText('Epic sadface: Username and password do not match any user in this service');
 
         const errorText = await loginPage.errorMessage.innerText();
-        await test.info().attach('Error message shown', {
-            body: errorText,
-            contentType: 'text/plain',
-        });
+        console.log('Error message:', errorText);
+        await expect(loginPage.errorMessage).toHaveText('Epic sadface: Username and password do not match any user in this service');
     });
 
     //3rd test case
@@ -59,4 +60,19 @@ test.describe('Login', () => {
         await loginPage.loginButton.click();
         await expect(loginPage.errorMessage).toHaveText('Epic sadface: Username is required');
     });
+
+    //5th test case
+    test('login page shows the logo', async () => {
+
+        //await loginPage.logo.isVisible();
+        //const visible = await loginPage.logo.isVisible();
+        /*await test.info().attach('Is logo visible?', {
+            body: String(visible),
+            contentType: 'text/plain',
+        });*/
+        //console.log('Is logo visible?', visible);
+        console.log('Is logo visible?', await loginPage.logo.isVisible());
+        await expect(loginPage.logo).toBeVisible();
+        //await expect(loginPage.logo).toBeVisible();
+    })
 })
