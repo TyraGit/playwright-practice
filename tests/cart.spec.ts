@@ -18,13 +18,50 @@ test.describe("Cart", () => {
     cartsPage = new CartPage(page);
   });
 
-  //first test case
-  test("user can add a product to the cart", async () => {
-    await productsPage.addBackpackToCart();
-    await expect(productsPage.cartBadge).toHaveText("1"); //expectation is to check the cart badge has value
+  //1st test case
+  test("user can add one product to the cart", async () => {
+    await productsPage.addToCart("sauce-labs-backpack");
+    await expect(productsPage.cartBadge).toHaveText("1");
 
     await productsPage.openCart();
     await expect(cartsPage.title).toHaveText("Your Cart"); //expectation is to verify that the page has title Your Cart
-    await expect(cartsPage.itemName).toHaveText("Sauce Labs Backpack"); //expectation is to verify that item exist in the page
+    await expect(cartsPage.itemName).toHaveText(["Sauce Labs Backpack"]);
   });
+
+  //2nd test case
+  test("user can add multiple products to the cart", async () => {
+    await productsPage.addToCart("sauce-labs-backpack");
+    await productsPage.addToCart("sauce-labs-bike-light");
+    await expect(productsPage.cartBadge).toHaveText("2");
+
+    await productsPage.openCart();
+    await expect(cartsPage.title).toHaveText("Your Cart"); //expectation is to verify that the page has title Your Cart
+    await expect(cartsPage.itemName).toHaveText([
+      "Sauce Labs Backpack",
+      "Sauce Labs Bike Light",
+    ]);
+  });
+
+  //3rd test case
+  test("user can add all products to the cart", async () => {
+    /*await productsPage.addToCart('sauce-labs-backpack');
+    await productsPage.addToCart('sauce-labs-bike-light');
+    await productsPage.addToCart('sauce-labs-bolt-t-shirt');*/
+    const added = await productsPage.addAllToCart();
+    await expect(productsPage.cartBadge).toHaveText(String(added));
+    //await expect(productsPage.cartBadge).toHaveText("3"); //expectation is to check the cart badge has value
+
+    await productsPage.openCart();
+    await expect(cartsPage.title).toHaveText("Your Cart"); //expectation is to verify that the page has title Your Cart
+    /*await expect(cartsPage.itemName).toHaveText([
+      "Sauce Labs Backpack",
+      "Sauce Labs Bike Light",
+      "Sauce Labs Bolt T-Shirt",
+      "Sauce Labs Fleece Jacket",
+      "Sauce Labs Onesie",
+      "Test.allTheThings() T-Shirt (Red)",
+    ]);*/ // expectation is to check all six names are listed, in the order they were added
+    await expect(cartsPage.itemName).toHaveCount(6); //expectation is to verify that all six are in the cart
+  });
+
 });

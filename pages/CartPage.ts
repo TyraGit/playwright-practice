@@ -10,4 +10,5 @@ export class CartPage {
     this.title = page.locator('[data-test="title"]');
     this.itemName = page.locator('[data-test="inventory-item-name"]');
   }
+
 }
