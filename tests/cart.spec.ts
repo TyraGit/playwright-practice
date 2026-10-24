@@ -5,8 +5,8 @@ import { CartPage } from "../pages/CartPage";
 
 //test.describe acts as test suite
 test.describe("Cart", () => {
-  let productsPage: ProductsPage;  //declare this here because every test needs to use it
-  let cartsPage: CartPage;  //declare this here because every test needs to use it
+  let productsPage: ProductsPage; //declare this here if any test uses it
+  let cartsPage: CartPage; //declare this here if any test uses it
 
   //run this before each test case
   test.beforeEach(async ({ page }) => {

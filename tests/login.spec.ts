@@ -3,7 +3,7 @@ import { LoginPage } from "../pages/LoginPage";
 
 //test.describe acts as test suite
 test.describe("Login", () => {
-  let loginPage: LoginPage; //calling object from LoginPage and declare this here because every test needs to use it
+  let loginPage: LoginPage; //declare this here if any test uses it
 
   //run this before each test case
   test.beforeEach(async ({ page }) => {
