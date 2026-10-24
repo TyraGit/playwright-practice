@@ -3,7 +3,7 @@ import { LoginPage } from "../pages/LoginPage";
 
 //test.describe acts as test suite
 test.describe("Login", () => {
-  let loginPage: LoginPage; //calling object from LoginPage
+  let loginPage: LoginPage; //calling object from LoginPage and declare this here because every test needs to use it
 
   //run this before each test case
   test.beforeEach(async ({ page }) => {
@@ -14,8 +14,8 @@ test.describe("Login", () => {
   //first test case
   test("user can login with valid credentials", async ({ page }) => {
     /*await page.getByPlaceholder('Username').fill('standard_user');
-        await page.locator('[data-test="password"]').fill('secret_sauce');
-        await page.getByRole('button', { name: 'Login' }).click();*/
+    await page.locator('[data-test="password"]').fill('secret_sauce');
+    await page.getByRole('button', { name: 'Login' }).click();*/
     //await page.locator('[data-test="login-button"]').click();
 
     //calling username, password and clicking login button from LoginPage
